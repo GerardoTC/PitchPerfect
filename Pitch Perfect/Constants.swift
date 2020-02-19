@@ -21,6 +21,8 @@ struct Constants {
         static let AudioRecordingError = "Audio Recording Error"
         static let AudioFileError = "Audio File Error"
         static let AudioEngineError = "Audio Engine Error"
+        static let AudioPermissionErrorTitle = "Audio permission not granted"
+        static let AudioPermissionErrorMessage = "please go to your settings and enable the capability to record"
     }
     
     struct RecordingTexts {

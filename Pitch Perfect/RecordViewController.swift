@@ -14,6 +14,7 @@ class RecordViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopRecordingButton: UIButton!
     var audioManager = AudioRecorderManager()
+    var permissionGranted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,16 @@ class RecordViewController: UIViewController {
         audioManager.delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        // Check permission to record.
+        checkForAudioPermission()
+    }
+    
     @IBAction func startRecording(_ sender: Any) {
+        guard permissionGranted else {
+            showAlertError()
+            return
+        }
         updateButtons(isRecording: true)
         updateRecordingLabel(Constants.RecordingTexts.recording)
         audioManager.startRecording()
@@ -42,6 +52,23 @@ class RecordViewController: UIViewController {
         stopRecordingButton.isEnabled = isRecording
     }
     
+    func checkForAudioPermission() {
+        AVAudioSession.sharedInstance().requestRecordPermission { [weak self]granted in
+            self?.permissionGranted = granted
+        }
+    }
+    
+    func showAlertError() {
+        let alert = UIAlertController(title: Constants.Alerts.AudioPermissionErrorTitle,
+                                      message:  Constants.Alerts.AudioPermissionErrorMessage,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: Constants.Alerts.DismissAlert,
+                                   style: .default) { [weak self] (alertAction) in
+                                                        self?.dismiss(animated: true, completion: nil)
+                                                    }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension RecordViewController: AVAudioRecorderDelegate {
