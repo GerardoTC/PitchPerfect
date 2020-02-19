@@ -20,6 +20,8 @@ class RecordViewController: UIViewController {
         super.viewDidLoad()
         updateButtons(isRecording: false)
         audioManager.delegate = self
+        setupNavBar()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +52,16 @@ class RecordViewController: UIViewController {
     func updateButtons(isRecording: Bool) {
         recordButton.isEnabled = !isRecording
         stopRecordingButton.isEnabled = isRecording
+    }
+    
+    func setupNavBar() {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.tintColor = .white
+        imageView.contentMode = .scaleAspectFit
+        let image = UIImage(named: "AppIcon")
+        imageView.image = image
+        navigationItem.titleView = imageView
     }
     
     func checkForAudioPermission() {
