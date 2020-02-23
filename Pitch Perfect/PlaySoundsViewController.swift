@@ -28,6 +28,11 @@ class PlaySoundsViewController: UIViewController {
         configureUI(.notPlaying)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopPlaying()
+    }
+    
     @IBAction func playSoundFor(sender: UIButton) {
         switch sender {
         case slowButton:
@@ -48,7 +53,7 @@ class PlaySoundsViewController: UIViewController {
         configureUI(.playing)
     }
     
-    @IBAction func stopPlaying(sender: UIButton) {
+    @IBAction func stopPlaying() {
         playerManager.stopAudio()
         configureUI(.notPlaying)
     }

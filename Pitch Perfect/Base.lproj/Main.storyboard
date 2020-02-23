@@ -172,7 +172,7 @@
                                 </constraints>
                                 <state key="normal" image="Stop"/>
                                 <connections>
-                                    <action selector="stopPlayingWithSender:" destination="KXp-yo-hW8" eventType="touchUpInside" id="z1q-SZ-DOP"/>
+                                    <action selector="stopPlaying" destination="KXp-yo-hW8" eventType="touchUpInside" id="HP2-Pc-nm8"/>
                                 </connections>
                             </button>
                         </subviews>
